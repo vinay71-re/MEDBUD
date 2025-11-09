@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import { Calendar, Users, Clock, Shield, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const navigate = useNavigate();
+  
   const features = [
     {
       icon: Calendar,
@@ -76,11 +79,20 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 shadow-medium hover:shadow-large transition-smooth group">
+              <Button 
+                size="lg" 
+                onClick={() => navigate("/auth")}
+                className="text-lg px-8 shadow-medium hover:shadow-large transition-smooth group"
+              >
                 Book Appointment
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-smooth" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 border-2">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => navigate("/auth")}
+                className="text-lg px-8 border-2"
+              >
                 For Doctors
               </Button>
             </div>
@@ -214,10 +226,20 @@ const Index = () => {
               Join thousands of patients and doctors already using MedBud
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="text-lg px-8 shadow-large hover:scale-105 transition-smooth">
+              <Button 
+                size="lg" 
+                variant="secondary" 
+                onClick={() => navigate("/auth")}
+                className="text-lg px-8 shadow-large hover:scale-105 transition-smooth"
+              >
                 Get Started Now
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="text-lg px-8 bg-white/10 border-white text-white hover:bg-white hover:text-primary"
+              >
                 Learn More
               </Button>
             </div>
