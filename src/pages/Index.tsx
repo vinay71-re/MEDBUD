@@ -1,11 +1,35 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Users, Clock, Shield, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import IntroVideo from "@/components/IntroVideo";
+
 const Index = () => {
   const navigate = useNavigate();
+  const [showIntro, setShowIntro] = useState(true);
+  const [hasSeenIntro, setHasSeenIntro] = useState(false);
+
+  useEffect(() => {
+    // Check if user has already seen the intro in this session
+    const introSeen = sessionStorage.getItem("introSeen");
+    if (introSeen) {
+      setShowIntro(false);
+      setHasSeenIntro(true);
+    }
+  }, []);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    setHasSeenIntro(true);
+    sessionStorage.setItem("introSeen", "true");
+  };
+
+  if (showIntro && !hasSeenIntro) {
+    return <IntroVideo onComplete={handleIntroComplete} />;
+  }
   const features = [{
     icon: Calendar,
     title: "Easy Booking",
