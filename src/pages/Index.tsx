@@ -6,12 +6,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import IntroVideo from "@/components/IntroVideo";
-
 const Index = () => {
   const navigate = useNavigate();
   const [showIntro, setShowIntro] = useState(true);
   const [hasSeenIntro, setHasSeenIntro] = useState(false);
-
   useEffect(() => {
     // Check if user has already seen the intro in this session
     const introSeen = sessionStorage.getItem("introSeen");
@@ -20,13 +18,11 @@ const Index = () => {
       setHasSeenIntro(true);
     }
   }, []);
-
   const handleIntroComplete = () => {
     setShowIntro(false);
     setHasSeenIntro(true);
     sessionStorage.setItem("introSeen", "true");
   };
-
   if (showIntro && !hasSeenIntro) {
     return <IntroVideo onComplete={handleIntroComplete} />;
   }
@@ -104,9 +100,9 @@ const Index = () => {
               <span className="text-primary font-semibold text-sm"></span>
             </motion.div>
             
-            <h1 className="text-4xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
-              Your Health, Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-primary">odrResponsibilityity</span>
+            <h1 className="text-4xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">Your Healthcare,
+OurPlatform  o{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-primary">o</span>
             </h1>
             
             <p className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -274,7 +270,9 @@ const Index = () => {
               <Button size="lg" variant="secondary" onClick={() => navigate("/public-booking")} className="text-lg px-8 shadow-large hover:scale-105 transition-smooth">
                 Get Started Now
               </Button>
-              <Button size="lg" variant="outline" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="text-lg px-8 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" onClick={() => document.getElementById('features')?.scrollIntoView({
+              behavior: 'smooth'
+            })} className="text-lg px-8 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
                 Learn More
               </Button>
             </div>
