@@ -100,8 +100,7 @@ const Index = () => {
               <span className="text-primary font-semibold text-sm"></span>
             </motion.div>
             
-            <h1 className="text-4xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">Your Healthcare,
-OurPlatform  o{" "}
+            <h1 className="text-4xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">Your Healthcare, OurPlatform  o{" "}
               <span className="text-transparent bg-clip-text bg-gradient-primary">o</span>
             </h1>
             
