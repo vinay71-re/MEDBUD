@@ -115,7 +115,7 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => navigate("/book-appointment")} className="text-lg px-8 shadow-medium hover:shadow-large transition-smooth group">
+              <Button size="lg" onClick={() => navigate("/public-booking")} className="text-lg px-8 shadow-medium hover:shadow-large transition-smooth group">
                 Book Appointment
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-smooth" />
               </Button>
@@ -271,7 +271,7 @@ const Index = () => {
               Join thousands of patients and doctors already using MedBud
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" onClick={() => navigate("/book-appointment")} className="text-lg px-8 shadow-large hover:scale-105 transition-smooth">
+              <Button size="lg" variant="secondary" onClick={() => navigate("/public-booking")} className="text-lg px-8 shadow-large hover:scale-105 transition-smooth">
                 Get Started Now
               </Button>
               <Button size="lg" variant="outline" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="text-lg px-8 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
