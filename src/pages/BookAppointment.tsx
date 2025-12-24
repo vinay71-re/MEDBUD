@@ -112,7 +112,12 @@ const BookAppointment = () => {
       toast({ title: "Error loading doctors", variant: "destructive" });
       console.error(error);
     } else {
-      setDoctors(data || []);
+      // Transform the data to handle profiles array from Supabase join
+      const transformedData = (data || []).map(doc => ({
+        ...doc,
+        profiles: Array.isArray(doc.profiles) ? doc.profiles[0] : doc.profiles || { full_name: 'Unknown Doctor' }
+      })) as Doctor[];
+      setDoctors(transformedData);
     }
     setLoading(false);
   };
