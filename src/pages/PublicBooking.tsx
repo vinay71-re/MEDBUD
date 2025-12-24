@@ -213,6 +213,9 @@ const PublicBooking = () => {
           appointment_date: selectedDate,
           appointment_time: selectedTime,
           symptoms: bookingDetails.symptoms || null,
+          patient_name: bookingDetails.patientName.trim(),
+          patient_email: bookingDetails.patientEmail.trim(),
+          patient_phone: bookingDetails.patientPhone.trim(),
           payment_status: "completed",
           payment_method: paymentMethod,
           status: "confirmed"
