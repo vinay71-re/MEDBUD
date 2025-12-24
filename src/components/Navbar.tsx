@@ -15,12 +15,15 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
+          <button 
+            onClick={() => navigate("/")} 
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
               <Stethoscope className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-foreground">MedBud</span>
-          </div>
+          </button>
 
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-foreground hover:text-primary transition-smooth">
