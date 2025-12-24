@@ -10,10 +10,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 
 const signupSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  password: z.string()
+    .min(6, "Password must be at least 6 characters")
+    .max(128, "Password must be less than 128 characters"),
+  fullName: z.string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters")
+    .regex(/^[a-zA-Z\s\-']+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+  phone: z.string()
+    .trim()
+    .regex(/^[0-9]{10}$/, "Phone number must be exactly 10 digits")
+    .max(15, "Phone number is too long"),
 });
 
 const loginSchema = z.object({
