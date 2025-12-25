@@ -55,7 +55,9 @@ const Auth = () => {
           .eq("user_id", session.user.id);
         
         const userRoles = roles?.map(r => r.role) || [];
-        if (userRoles.includes("doctor") || userRoles.includes("admin")) {
+        if (userRoles.includes("doctor")) {
+          navigate("/doctor-dashboard");
+        } else if (userRoles.includes("admin")) {
           navigate("/dashboard");
         } else {
           navigate("/patient-dashboard");
@@ -186,7 +188,9 @@ const Auth = () => {
           description: "Logged in successfully.",
         });
         
-        if (userRoles.includes("doctor") || userRoles.includes("admin")) {
+        if (userRoles.includes("doctor")) {
+          navigate("/doctor-dashboard");
+        } else if (userRoles.includes("admin")) {
           navigate("/dashboard");
         } else {
           navigate("/patient-dashboard");
