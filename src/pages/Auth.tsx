@@ -44,11 +44,22 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Check if user is already logged in and redirect based on role
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        navigate("/dashboard");
+        // Check user role to redirect appropriately
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id);
+        
+        const userRoles = roles?.map(r => r.role) || [];
+        if (userRoles.includes("doctor") || userRoles.includes("admin")) {
+          navigate("/dashboard");
+        } else {
+          navigate("/patient-dashboard");
+        }
       }
     };
     checkUser();
@@ -105,11 +116,19 @@ const Auth = () => {
           console.error("Profile creation error:", profileError);
         }
 
+        // Create patient role
+        await supabase
+          .from("user_roles")
+          .insert({
+            user_id: data.user.id,
+            role: "patient",
+          });
+
         toast({
           title: "Success!",
           description: "Account created successfully. Redirecting...",
         });
-        navigate("/dashboard");
+        navigate("/patient-dashboard");
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -154,11 +173,24 @@ const Auth = () => {
       }
 
       if (data.session) {
+        // Check user role to redirect appropriately
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.session.user.id);
+        
+        const userRoles = roles?.map(r => r.role) || [];
+        
         toast({
           title: "Welcome back!",
           description: "Logged in successfully.",
         });
-        navigate("/dashboard");
+        
+        if (userRoles.includes("doctor") || userRoles.includes("admin")) {
+          navigate("/dashboard");
+        } else {
+          navigate("/patient-dashboard");
+        }
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
