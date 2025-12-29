@@ -131,21 +131,35 @@ const PublicBooking = () => {
 
   const fetchDoctors = async () => {
     setLoading(true);
-    // Fetch ALL active doctors (simulating multiple doctors per hospital)
-    const { data, error } = await supabase
+    // Fetch ALL active doctors
+    const { data: doctorsData, error: doctorsError } = await supabase
       .from("doctors")
-      .select("*, profiles!doctors_user_id_fkey(full_name)")
+      .select("*")
       .eq("is_active", true);
     
-    if (error) {
+    if (doctorsError) {
       toast({ title: "Error loading doctors", variant: "destructive" });
-    } else {
-      const transformedData = (data || []).map(doc => ({
-        ...doc,
-        profiles: Array.isArray(doc.profiles) ? doc.profiles[0] : doc.profiles || { full_name: 'Unknown Doctor' }
-      })) as Doctor[];
-      setDoctors(transformedData);
+      setLoading(false);
+      return;
     }
+
+    // Fetch profiles for these doctors
+    const userIds = (doctorsData || []).map(d => d.user_id);
+    const { data: profilesData } = await supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", userIds);
+
+    // Combine doctors with their profile names
+    const transformedData = (doctorsData || []).map(doc => {
+      const profile = profilesData?.find(p => p.id === doc.user_id);
+      return {
+        ...doc,
+        profiles: { full_name: profile?.full_name || 'Dr. ' + doc.specialization }
+      };
+    }) as Doctor[];
+    
+    setDoctors(transformedData);
     setLoading(false);
   };
 
